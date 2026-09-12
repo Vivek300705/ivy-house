@@ -235,6 +235,15 @@
       "how_found": "Called /health and observed server_time: 2026-09-12T14:46:55.979949+05:30",
       "impact": "Timezone parsing must handle explicit offsets and not blindly assume Z or UTC",
       "evidence": []
+    },
+    {
+      "endpoint": "/v1/favourites",
+      "category": "missing_endpoint",
+      "documented": "Saved listings API (GET, POST, DELETE)",
+      "actual": "Returns 404 Not Found for all methods",
+      "how_found": "Attempted to GET and POST to /v1/favourites and received 404",
+      "impact": "The frontend must store user favourites locally in localStorage since the server does not support them",
+      "evidence": []
     }
   ]
 }
