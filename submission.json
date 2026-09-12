@@ -1,0 +1,240 @@
+{
+  "api_key": "IVY26-754116092122",
+  "candidate": {
+    "name": "Vivek Kumar Sulaniya",
+    "email": "vivek.sulaniya@mnnit.ac.in",
+    "repo_url": "https://github.com/viveksulaniya/ivy-assignment",
+    "demo_url": "https://ivy-assignment.vercel.app"
+  },
+  "answers": {
+    "total_listing_records": 4700,
+    "unique_properties": 3849,
+    "active_listings": 3722,
+    "corrupt_listing_ids": [
+      "100-1000928",
+      "100-1001077",
+      "100-1002346",
+      "100-1002442",
+      "100-1002884",
+      "100-1003117",
+      "DWE-1001129",
+      "DWE-1001165",
+      "DWE-1001183",
+      "DWE-1001909",
+      "DWE-1003673",
+      "MAG-1000179",
+      "MAG-1000426",
+      "MAG-1000885",
+      "MAG-1002614",
+      "MAG-1003269",
+      "MAG-1003510",
+      "SQU-1000979",
+      "SQU-1002843",
+      "SQU-1003177",
+      "SQU-1003378",
+      "ZER-1000500",
+      "ZER-1001207",
+      "ZER-1001249",
+      "ZER-1001334",
+      "ZER-1002128",
+      "ZER-1002632",
+      "ZER-1002667",
+      "ZER-1002853",
+      "ZER-1002900",
+      "ZER-1002911",
+      "ZER-1003426"
+    ],
+    "total_monthly_rent": 6266100,
+    "avg_price_per_sqft_2bhk": 11494.36,
+    "costliest_project": {
+      "project_id": "P10255",
+      "price_max_inr": 48900000
+    },
+    "listings_last_7_days": 149,
+    "fake_listing_ids": [
+      "100-1002501",
+      "DWE-1002631",
+      "DWE-1003102",
+      "MAG-1003492",
+      "SQU-1001431",
+      "SQU-1003524",
+      "ZER-1003652",
+      "ZER-1003813"
+    ],
+    "projects_with_wrong_listing_count": 392
+  },
+  "findings": [
+    {
+      "endpoint": "*",
+      "category": "auth",
+      "documented": "API key passed as ?api_key=... and no bearer token needed for /v1/listings if API key is present",
+      "actual": "Requires X-API-Key header AND a bearer token from /auth/login as Authorization: Bearer <token>",
+      "how_found": "Tested the documented curl command and received 401 Unauthorized until both headers were added",
+      "impact": "Cannot access any endpoints without correctly implementing the two-step auth",
+      "evidence": []
+    },
+    {
+      "endpoint": "/auth/login",
+      "category": "auth",
+      "documented": "Returns token, expires_in: 86400, no refresh flow",
+      "actual": "Returns access_token, refresh_token, expires_in: 900 (15 min), and includes refresh_url",
+      "how_found": "Inspected the JSON response from /auth/login",
+      "impact": "Frontend must handle token refresh every 15 minutes instead of assuming a 24-hour session",
+      "evidence": []
+    },
+    {
+      "endpoint": "*",
+      "category": "pagination",
+      "documented": "Uses page and limit parameters, max limit 200",
+      "actual": "Uses offset and limit parameters, and the server enforces a maximum limit of 50 regardless of the requested limit",
+      "how_found": "Requested page=2 and limit=200, observed offset=0 and limit=50 in the response",
+      "impact": "Crawler must loop using offset and limit=50 to fetch all records",
+      "evidence": []
+    },
+    {
+      "endpoint": "*",
+      "category": "pagination",
+      "documented": "total is the exact number of records matching your filters",
+      "actual": "The total field does not match the actual number of records returned (e.g. listings returned 4700 unique records but total was 4468)",
+      "how_found": "Counted unique listing_id values from a full crawl and compared against the total field from the first page",
+      "impact": "Cannot rely on total to stop pagination; must loop until has_more is false",
+      "evidence": []
+    },
+    {
+      "endpoint": "/v1/listings",
+      "category": "completeness",
+      "documented": "Inactive, expired and withdrawn listings are excluded server side",
+      "actual": "Inactive listings are included in the response, marked with is_live: false",
+      "how_found": "Filtered the full listings dataset for is_live == false and found 978 records",
+      "impact": "Frontend must manually filter listings by is_live == true before displaying them to users",
+      "evidence": []
+    },
+    {
+      "endpoint": "/v1/listings",
+      "category": "filters",
+      "documented": "It always agrees with what GET /v1/listings?project_id=... returns",
+      "actual": "The project_id query parameter is completely ignored and does not filter the results, returning the entire city dataset",
+      "how_found": "Sent a request with ?project_id=P10175 and received 4468 total records matching the entire dataset",
+      "impact": "Frontend must filter projects locally after fetching all listings, or fetch listings by locality instead",
+      "evidence": []
+    },
+    {
+      "endpoint": "/v1/projects",
+      "category": "units",
+      "documented": "price_min and price_max are in rupees, integer",
+      "actual": "They are returned as floats in Lakhs or Crores depending on the magnitude (e.g. values < 15 are in crores, > 15 are in lakhs)",
+      "how_found": "Observed project price_max values like 2.93 and 91.2",
+      "impact": "Frontend must convert these values back to Rupees by multiplying by 10,000,000 or 100,000 depending on the value",
+      "evidence": [
+        "P10182",
+        "P10277"
+      ]
+    },
+    {
+      "endpoint": "/v1/rentals",
+      "category": "units",
+      "documented": "deposit is in rupees",
+      "actual": "deposit is sometimes given as an integer representing the number of months of rent (e.g. 2, 6, 10)",
+      "how_found": "Found rentals where deposit is 6 or 10, while price is 30,000+",
+      "impact": "Frontend must check if deposit < 100 and multiply by price to get the actual rupee amount",
+      "evidence": [
+        "R1000399",
+        "R1000002",
+        "R1000005",
+        "R1000007",
+        "R1000009",
+        "R1000010",
+        "R1000011",
+        "R1000012",
+        "R1000013",
+        "R1000025"
+      ]
+    },
+    {
+      "endpoint": "/v1/listings",
+      "category": "units",
+      "documented": "Area is Square feet everywhere",
+      "actual": "carpet_area and super_built_up_area are sometimes in square meters (values < 300)",
+      "how_found": "Found listings with area ~150 for multi-crore properties, which only makes sense in square meters",
+      "impact": "Frontend must multiply areas < 300 by 10.7639 to display correctly in square feet",
+      "evidence": [
+        "MAG-1002627",
+        "MAG-1003078",
+        "MAG-1000037",
+        "MAG-1002865",
+        "MAG-1000214",
+        "MAG-1004229",
+        "MAG-1002894",
+        "MAG-1003215",
+        "MAG-1003628",
+        "MAG-1004339"
+      ]
+    },
+    {
+      "endpoint": "/v1/listings",
+      "category": "data_quality",
+      "documented": "N/A",
+      "actual": "There are impossible records where floor > total_floors, carpet_area > super_built_up_area, posted_at in the future, or price <= 0",
+      "how_found": "Wrote rules to check for logical impossibilities and found exactly 32 corrupt listings",
+      "impact": "These records must be excluded from analytics and displays to avoid breaking the UI",
+      "evidence": [
+        "100-1000928",
+        "100-1001077",
+        "100-1002346",
+        "100-1002442",
+        "100-1002884",
+        "100-1003117",
+        "DWE-1001129",
+        "DWE-1001165",
+        "DWE-1001183",
+        "DWE-1001909",
+        "DWE-1003673",
+        "MAG-1000179",
+        "MAG-1000426",
+        "MAG-1000885",
+        "MAG-1002614",
+        "MAG-1003269",
+        "MAG-1003510",
+        "SQU-1000979",
+        "SQU-1002843",
+        "SQU-1003177"
+      ]
+    },
+    {
+      "endpoint": "/v1/listings",
+      "category": "fraud",
+      "documented": "Returns sale listings",
+      "actual": "Bait-and-switch listings exist where price is extremely low (< 100,000), acting as monthly rent values to generate false enquiries",
+      "how_found": "Searched for sale listings with price < 15,00,000 and found exactly 8 records with rent-like prices",
+      "impact": "These fake listings skew price analytics and must be excluded",
+      "evidence": [
+        "100-1002501",
+        "DWE-1002631",
+        "DWE-1003102",
+        "MAG-1003492",
+        "SQU-1001431",
+        "SQU-1003524",
+        "ZER-1003652",
+        "ZER-1003813"
+      ]
+    },
+    {
+      "endpoint": "/v1/analytics/summary",
+      "category": "missing_endpoint",
+      "documented": "Pre-computed aggregates for your city",
+      "actual": "Returns 404 Not Found",
+      "how_found": "Attempted to fetch the endpoint using the valid token and received a 404 error",
+      "impact": "The insights dashboard must compute analytics manually from the listings and projects datasets",
+      "evidence": []
+    },
+    {
+      "endpoint": "/health",
+      "category": "timestamps",
+      "documented": "Timestamps: ISO 8601, UTC, Z suffix, everywhere",
+      "actual": "The health endpoint returns server_time with an explicit +05:30 offset instead of Z",
+      "how_found": "Called /health and observed server_time: 2026-09-12T14:46:55.979949+05:30",
+      "impact": "Timezone parsing must handle explicit offsets and not blindly assume Z or UTC",
+      "evidence": []
+    }
+  ]
+}
