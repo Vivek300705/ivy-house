@@ -116,3 +116,17 @@ export async function fetchProjects(offset = 0, limit = 50) {
   data.results = data.results.map(fixProject);
   return data;
 }
+
+
+export async function refreshApiToken(refreshToken) {
+  const res = await fetch(${BASE_URL}/auth/refresh, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': API_KEY
+    },
+    body: JSON.stringify({ refresh_token: refreshToken })
+  });
+  if (!res.ok) throw new Error('Refresh failed');
+  return res.json();
+}
