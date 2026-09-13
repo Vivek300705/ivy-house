@@ -119,7 +119,7 @@ export async function fetchProjects(offset = 0, limit = 50) {
 
 
 export async function refreshApiToken(refreshToken) {
-  const res = await fetch(${BASE_URL}/auth/refresh, {
+  const res = await fetch(`${BASE_URL}/auth/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
