@@ -3,7 +3,7 @@ import { fetchListings } from '../api';
 import { TrendingUp, AlertTriangle, Home, IndianRupee, PieChart as PieChartIcon } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+const COLORS = ['#e11d48', '#f59e0b', '#10b981', '#06b6d4', '#8b5cf6'];
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -80,7 +80,7 @@ export default function Dashboard() {
           <p className="text-gray-500 mt-1">Real-time Bangalore property analytics.</p>
         </div>
         <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 text-sm font-medium text-gray-600">
-          Sample Size: <span className="text-blue-600">{stats.sampleSize} valid listings</span>
+          Sample Size: <span className="text-rose-600">{stats.sampleSize} valid listings</span>
         </div>
       </div>
       
@@ -101,7 +101,7 @@ export default function Dashboard() {
             <IndianRupee size={80} />
           </div>
           <div className="flex items-center gap-3 mb-4 text-gray-500">
-            <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl"><IndianRupee size={20} /></div>
+            <div className="p-2.5 bg-rose-50 text-rose-600 rounded-xl"><IndianRupee size={20} /></div>
             <h3 className="font-semibold uppercase text-xs tracking-wider">Average Price</h3>
           </div>
           <p className="text-4xl font-extrabold text-gray-900">₹{(stats.avgPrice / 100000).toFixed(2)} L</p>
@@ -141,7 +141,7 @@ export default function Dashboard() {
                 <XAxis type="number" hide />
                 <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#6b7280', fontSize: 13}} />
                 <Tooltip cursor={{fill: '#f3f4f6'}} contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
-                <Bar dataKey="value" fill="#3b82f6" radius={[0, 4, 4, 0]} barSize={24} />
+                <Bar dataKey="value" fill="#e11d48" radius={[0, 4, 4, 0]} barSize={24} />
               </BarChart>
             </ResponsiveContainer>
           </div>

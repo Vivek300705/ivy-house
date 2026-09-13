@@ -49,12 +49,12 @@ export default function Favourites() {
         </div>
       ) : listings.length === 0 ? (
         <div className="bg-white py-24 rounded-3xl border border-gray-100 text-center flex flex-col items-center justify-center">
-          <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+          <div className="w-24 h-24 bg-stone-50 rounded-full flex items-center justify-center mb-6">
             <Heart size={48} className="text-gray-300" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">No saved properties yet</h2>
           <p className="text-gray-500 max-w-md mx-auto mb-8">Browse the listings and click the heart icon to save properties you love.</p>
-          <Link to="/listings" className="bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 flex items-center gap-2">
+          <Link to="/listings" className="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-rose-700 transition-colors shadow-lg shadow-blue-200 flex items-center gap-2">
             <Home size={20} /> Browse Listings
           </Link>
         </div>
@@ -85,7 +85,7 @@ export default function Favourites() {
                 
                 <div className="mt-auto flex justify-between items-end pt-4 border-t border-gray-50">
                   <div>
-                    <p className="text-2xl font-extrabold text-blue-600">₹{(l.price / 100000).toFixed(2)} <span className="text-base font-semibold">L</span></p>
+                    <p className="text-2xl font-extrabold text-rose-600">₹{(l.price / 100000).toFixed(2)} <span className="text-base font-semibold">L</span></p>
                     <p className="text-sm text-gray-500 font-medium">{l.carpet_area_sqft} sq.ft</p>
                   </div>
                 </div>

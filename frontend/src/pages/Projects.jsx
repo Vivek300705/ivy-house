@@ -54,7 +54,7 @@ export default function Projects() {
             <div className="flex justify-between items-start mb-4 relative z-10">
               <div>
                 <h3 className="font-bold text-xl mb-1 text-gray-900">{p.apartment_name}</h3>
-                <p className="text-blue-600 font-semibold text-sm">by {p.developer_name}</p>
+                <p className="text-rose-600 font-semibold text-sm">by {p.developer_name}</p>
               </div>
               <span className="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] px-2.5 py-1 rounded-md font-bold uppercase tracking-wider">
                 {p.project_status}
@@ -65,7 +65,7 @@ export default function Projects() {
               <MapPin size={16} className="text-gray-400" /> {p.locality}
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-6 bg-gray-50 p-4 rounded-xl relative z-10">
+            <div className="grid grid-cols-2 gap-4 mb-6 bg-stone-50 p-4 rounded-xl relative z-10">
               <div>
                 <p className="text-[11px] text-gray-500 uppercase font-bold tracking-wider mb-1">Price Range</p>
                 <p className="font-bold text-gray-900">{formatPrice(p.price_min_inr)} - {formatPrice(p.price_max_inr)}</p>
@@ -77,7 +77,7 @@ export default function Projects() {
             </div>
 
             <div className="border-t border-gray-100 pt-4 flex justify-between items-center text-sm text-gray-600 relative z-10">
-              <div className="flex items-center gap-2 font-medium bg-blue-50 text-blue-700 px-2 py-1 rounded">
+              <div className="flex items-center gap-2 font-medium bg-rose-50 text-rose-700 px-2 py-1 rounded">
                 <Grid size={16} /> {p.total_units} Units
               </div>
               <div className="font-semibold text-gray-900 flex items-center gap-1.5">
@@ -105,7 +105,7 @@ export default function Projects() {
         <div className="mt-10 text-center">
           <button 
             onClick={() => loadData(false)}
-            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-gray-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-blue-100"
+            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-stone-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-rose-100"
           >
             Load More Projects
           </button>

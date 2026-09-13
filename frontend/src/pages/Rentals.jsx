@@ -51,13 +51,13 @@ export default function Rentals() {
                 <MapPin size={16} className="text-gray-400" /> {r.locality}
               </p>
               
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl mb-5 flex justify-between items-center border border-blue-100/50 mt-auto">
+              <div className="bg-gradient-to-br from-rose-50 to-orange-50 p-4 rounded-xl mb-5 flex justify-between items-center border border-rose-100/50 mt-auto">
                 <div>
-                  <p className="text-[10px] text-blue-600 uppercase font-bold tracking-wider mb-0.5">Monthly Rent</p>
+                  <p className="text-[10px] text-rose-600 uppercase font-bold tracking-wider mb-0.5">Monthly Rent</p>
                   <p className="text-2xl font-extrabold text-gray-900">₹{r.price.toLocaleString()}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[10px] text-blue-600 uppercase font-bold tracking-wider mb-0.5">Deposit</p>
+                  <p className="text-[10px] text-rose-600 uppercase font-bold tracking-wider mb-0.5">Deposit</p>
                   <p className="text-sm font-bold text-gray-700">₹{r.deposit_inr.toLocaleString()}</p>
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function Rentals() {
         <div className="mt-10 text-center">
           <button 
             onClick={() => loadData(false)}
-            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-gray-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-blue-100"
+            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-stone-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-rose-100"
           >
             Load More Rentals
           </button>

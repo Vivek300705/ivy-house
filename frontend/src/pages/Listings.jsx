@@ -81,12 +81,12 @@ export default function Listings() {
         <input 
           type="text" 
           placeholder="Locality (e.g. Whitefield)" 
-          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1 min-w-[150px]"
+          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 flex-1 min-w-[150px]"
           value={filters.locality}
           onChange={e => setFilters({...filters, locality: e.target.value})}
         />
         <select 
-          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[120px]"
+          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 min-w-[120px]"
           value={filters.bhk}
           onChange={e => setFilters({...filters, bhk: e.target.value})}
         >
@@ -99,19 +99,19 @@ export default function Listings() {
         <input 
           type="number" 
           placeholder="Min Price (₹)" 
-          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-[140px]"
+          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 w-[140px]"
           value={filters.min_price}
           onChange={e => setFilters({...filters, min_price: e.target.value})}
         />
         <input 
           type="number" 
           placeholder="Max Price (₹)" 
-          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-[140px]"
+          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 w-[140px]"
           value={filters.max_price}
           onChange={e => setFilters({...filters, max_price: e.target.value})}
         />
         <select 
-          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[150px]"
+          className="border border-gray-200 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 min-w-[150px]"
           value={filters.furnishing}
           onChange={e => setFilters({...filters, furnishing: e.target.value})}
         >
@@ -150,7 +150,7 @@ export default function Listings() {
               
               <div className="mt-auto flex justify-between items-end pt-4 border-t border-gray-50">
                 <div>
-                  <p className="text-2xl font-extrabold text-blue-600">₹{(l.price / 100000).toFixed(2)} <span className="text-base font-semibold">L</span></p>
+                  <p className="text-2xl font-extrabold text-rose-600">₹{(l.price / 100000).toFixed(2)} <span className="text-base font-semibold">L</span></p>
                   <p className="text-sm text-gray-500 font-medium">{l.carpet_area_sqft} sq.ft</p>
                 </div>
                 <div className="text-right">
@@ -191,7 +191,7 @@ export default function Listings() {
         <div className="mt-10 text-center">
           <button 
             onClick={() => loadData(false)}
-            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-gray-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-blue-100"
+            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-stone-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-rose-100"
           >
             Load More Properties
           </button>
