@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { fetchRentals } from '../api';
-import { MapPin } from 'lucide-react';
+import { MapPin, Key } from 'lucide-react';
 
 export default function Rentals() {
   const [rentals, setRentals] = useState([]);
@@ -35,47 +35,61 @@ export default function Rentals() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Properties for Rent</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Properties for Rent</h1>
+        <p className="text-gray-500 mt-1">Find your next rental home in Bangalore.</p>
+      </div>
 
       {error && <div className="text-red-500 mb-4">{error}</div>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {rentals.map(r => (
-          <div key={r.listing_id} className="bg-white rounded-xl shadow-sm border overflow-hidden hover:shadow-md transition">
-            <div className="p-5">
-              <h3 className="font-semibold text-lg line-clamp-1 mb-2">{r.title}</h3>
-              <p className="text-gray-500 text-sm capitalize flex items-center gap-1 mb-4">
-                <MapPin size={14} /> {r.locality}
+          <div key={r.listing_id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <div className="p-5 flex-1 flex flex-col">
+              <h3 className="font-bold text-lg line-clamp-1 mb-2 text-gray-900">{r.title}</h3>
+              <p className="text-gray-500 text-sm capitalize flex items-center gap-1.5 mb-5">
+                <MapPin size={16} className="text-gray-400" /> {r.locality}
               </p>
               
-              <div className="bg-gray-50 p-4 rounded-lg mb-4 flex justify-between items-center">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl mb-5 flex justify-between items-center border border-blue-100/50 mt-auto">
                 <div>
-                  <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Monthly Rent</p>
-                  <p className="text-xl font-bold text-gray-900">₹{r.price.toLocaleString()}</p>
+                  <p className="text-[10px] text-blue-600 uppercase font-bold tracking-wider mb-0.5">Monthly Rent</p>
+                  <p className="text-2xl font-extrabold text-gray-900">₹{r.price.toLocaleString()}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Deposit</p>
-                  <p className="text-sm font-medium">₹{r.deposit_inr.toLocaleString()}</p>
+                  <p className="text-[10px] text-blue-600 uppercase font-bold tracking-wider mb-0.5">Deposit</p>
+                  <p className="text-sm font-bold text-gray-700">₹{r.deposit_inr.toLocaleString()}</p>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center text-sm text-gray-600">
-                <span>{r.bedroom} BHK {r.property_type}</span>
-                <span className="capitalize bg-blue-50 text-blue-700 px-2 py-1 rounded">{r.furnishing}</span>
+              <div className="flex justify-between items-center text-sm font-medium pt-1 border-t border-gray-50">
+                <span className="flex items-center gap-1.5 text-gray-700">
+                  <Key size={16} className="text-gray-400" /> {r.bedroom} BHK {r.property_type}
+                </span>
+                <span className="capitalize bg-gray-100 text-gray-700 px-2.5 py-1 rounded-md text-xs">
+                  {r.furnishing.replace('-', ' ')}
+                </span>
               </div>
             </div>
           </div>
         ))}
       </div>
+      
+      {loading && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          {[1,2,3].map(i => (
+            <div key={i} className="bg-white rounded-2xl border border-gray-100 h-56 animate-pulse"></div>
+          ))}
+        </div>
+      )}
 
-      {hasMore && (
-        <div className="mt-8 text-center">
+      {hasMore && !loading && (
+        <div className="mt-10 text-center">
           <button 
             onClick={() => loadData(false)}
-            disabled={loading}
-            className="bg-white border px-6 py-2 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+            className="bg-white border border-gray-200 px-8 py-2.5 rounded-xl text-gray-700 font-medium hover:bg-gray-50 hover:shadow-sm transition-all focus:ring-2 focus:ring-blue-100"
           >
-            {loading ? 'Loading...' : 'Load More'}
+            Load More Rentals
           </button>
         </div>
       )}
