@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { FavProvider } from './contexts/FavContext';
+import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Listings from './pages/Listings';
@@ -22,38 +23,45 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
+      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col shadow-sm z-10 relative">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-blue-600">Ivy Homes</h1>
-          <p className="text-sm text-gray-500 mt-1">{user?.email}</p>
+          <div className="flex items-center gap-2 text-blue-600 mb-1">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xl">I</div>
+            <h1 className="text-2xl font-bold tracking-tight">Ivy Homes</h1>
+          </div>
+          <p className="text-sm text-gray-500 truncate px-1">{user?.email}</p>
         </div>
-        <nav className="flex-1 px-4 space-y-2">
-          <Link to="/" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100">
+        
+        <nav className="flex-1 px-4 space-y-1.5 mt-2">
+          <NavLink to="/" end className={({isActive}) => `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium ${isActive ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
             <LayoutDashboard size={20} /> Insights
-          </Link>
-          <Link to="/listings" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100">
+          </NavLink>
+          <NavLink to="/listings" className={({isActive}) => `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium ${isActive ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
             <Home size={20} /> Buy
-          </Link>
-          <Link to="/rentals" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100">
+          </NavLink>
+          <NavLink to="/rentals" className={({isActive}) => `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium ${isActive ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
             <Key size={20} /> Rent
-          </Link>
-          <Link to="/projects" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100">
+          </NavLink>
+          <NavLink to="/projects" className={({isActive}) => `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium ${isActive ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
             <Building2 size={20} /> Projects
-          </Link>
-          <Link to="/favourites" className="flex items-center gap-3 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100">
+          </NavLink>
+          <NavLink to="/favourites" className={({isActive}) => `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium ${isActive ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
             <Heart size={20} /> Saved
-          </Link>
+          </NavLink>
         </nav>
-        <div className="p-4 border-t">
-          <button onClick={logout} className="flex items-center gap-3 px-3 py-2 text-red-600 w-full rounded-lg hover:bg-red-50">
+
+        <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+          <button onClick={logout} className="flex items-center gap-3 px-3 py-2.5 text-gray-600 w-full rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors font-medium">
             <LogOut size={20} /> Logout
           </button>
         </div>
       </aside>
       
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        {children}
+      <main className="flex-1 overflow-auto bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   );
@@ -74,6 +82,9 @@ export default function App() {
             <Route path="/favourites" element={<ProtectedRoute><Layout><Favourites /></Layout></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
+        <Toaster position="bottom-right" toastOptions={{
+          style: { borderRadius: '10px', background: '#333', color: '#fff' }
+        }} />
       </FavProvider>
     </AuthProvider>
   );
