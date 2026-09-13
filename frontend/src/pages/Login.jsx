@@ -27,17 +27,17 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-stone-50 p-4">
-      <div className="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 w-full max-w-md relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-orange-50 p-4">
+      <div className="bg-white p-10 rounded-3xl shadow-xl border border-stone-200 w-full max-w-md relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-2 bg-rose-600"></div>
+        <div className="absolute top-0 left-0 w-full h-2 bg-emerald-900"></div>
         
         <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-4">
+          <div className="w-16 h-16 bg-emerald-50 text-emerald-900 rounded-2xl flex items-center justify-center mb-4">
             <Building2 size={32} />
           </div>
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Ivy Homes</h1>
-          <p className="text-gray-500 mt-2 text-center text-sm">Log in with your demo credentials to access the assignment portal.</p>
+          <h1 className="text-3xl font-extrabold text-stone-900 tracking-tight">Ivy Homes</h1>
+          <p className="text-stone-500 mt-2 text-center text-sm">Log in with your demo credentials to access the assignment portal.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -47,7 +47,7 @@ export default function Login() {
               type="email" 
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 border border-stone-300 rounded-xl outline-none focus:ring-2 focus:ring-emerald-900 focus:border-transparent transition-all"
               required 
             />
           </div>
@@ -57,21 +57,21 @@ export default function Login() {
               type="password" 
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 border border-stone-300 rounded-xl outline-none focus:ring-2 focus:ring-emerald-900 focus:border-transparent transition-all"
               required 
             />
           </div>
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-rose-600 text-white font-bold py-3.5 rounded-xl hover:bg-rose-700 focus:ring-4 focus:ring-rose-100 disabled:opacity-70 disabled:hover:bg-rose-600 transition-all shadow-md mt-2"
+            className="w-full bg-emerald-900 text-white font-bold py-3.5 rounded-xl hover:bg-emerald-950 focus:ring-4 focus:ring-emerald-100 disabled:opacity-70 disabled:hover:bg-emerald-900 transition-all shadow-md mt-2"
           >
             {loading ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
         
-        <div className="mt-8 pt-6 border-t border-gray-100">
-          <p className="text-xs text-center text-gray-400">
+        <div className="mt-8 pt-6 border-t border-stone-200">
+          <p className="text-xs text-center text-stone-400">
             Demo credentials are provided in your assignment email.
           </p>
         </div>

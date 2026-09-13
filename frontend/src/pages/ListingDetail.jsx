@@ -32,12 +32,12 @@ export default function ListingDetail() {
     return (
       <div className="p-8 max-w-5xl mx-auto animate-pulse">
         <div className="w-24 h-6 bg-gray-200 rounded mb-8"></div>
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 h-96"></div>
+        <div className="bg-white rounded-3xl shadow-sm border border-stone-200 h-96"></div>
       </div>
     );
   }
   if (error) return <div className="p-8 text-center text-red-500 font-medium bg-red-50 rounded-xl m-8">{error}</div>;
-  if (!listing) return <div className="p-8 text-center bg-stone-50 rounded-xl m-8">Property not found.</div>;
+  if (!listing) return <div className="p-8 text-center bg-orange-50 rounded-xl m-8">Property not found.</div>;
 
   const isFav = favourites.includes(listing.listing_id);
 
@@ -53,17 +53,17 @@ export default function ListingDetail() {
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-500 hover:text-gray-900 mb-6 font-medium transition-colors">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-stone-500 hover:text-stone-900 mb-6 font-medium transition-colors">
         <ArrowLeft size={20} /> Back to Search
       </button>
 
-      <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-sm border border-stone-200 overflow-hidden">
         {/* Fake Banner */}
         <div className="h-64 w-full bg-gray-200 relative">
            <img src={`https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80&sig=${listing.listing_id}`} alt="Property Banner" className="w-full h-full object-cover" />
            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
            <div className="absolute bottom-6 left-8 text-white">
-             <span className="bg-rose-600 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-3 inline-block">
+             <span className="bg-emerald-900 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-3 inline-block">
                {listing.property_type}
              </span>
              <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-white">
@@ -77,75 +77,75 @@ export default function ListingDetail() {
 
         <div className="p-8">
           <div className="flex justify-between items-start mb-10 -mt-14 relative z-10">
-            <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border border-gray-100 flex items-center gap-4">
+            <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border border-stone-200 flex items-center gap-4">
                <div>
-                  <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Asking Price</p>
-                  <p className="text-3xl font-extrabold text-rose-600">₹{(listing.price / 100000).toFixed(2)} L</p>
+                  <p className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">Asking Price</p>
+                  <p className="text-3xl font-extrabold text-emerald-900">₹{(listing.price / 100000).toFixed(2)} L</p>
                </div>
             </div>
             
             <button 
               onClick={toggleFav}
-              className={`p-4 rounded-full shadow-lg transition-transform hover:scale-105 ${isFav ? 'text-red-500 bg-white border border-red-100' : 'text-gray-400 bg-white border border-gray-100'}`}
+              className={`p-4 rounded-full shadow-lg transition-transform hover:scale-105 ${isFav ? 'text-red-500 bg-white border border-red-100' : 'text-stone-400 bg-white border border-stone-200'}`}
             >
               <Heart size={28} fill={isFav ? 'currentColor' : 'none'} />
             </button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
-            <div className="bg-stone-50 p-5 rounded-2xl">
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2">Area</p>
-              <p className="text-2xl font-bold text-gray-900">{listing.carpet_area_sqft} <span className="text-sm font-medium text-gray-500">sq.ft</span></p>
+            <div className="bg-orange-50 p-5 rounded-2xl">
+              <p className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-2">Area</p>
+              <p className="text-2xl font-bold text-stone-900">{listing.carpet_area_sqft} <span className="text-sm font-medium text-stone-500">sq.ft</span></p>
             </div>
-            <div className="bg-stone-50 p-5 rounded-2xl">
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2">Type</p>
-              <p className="text-2xl font-bold capitalize text-gray-900">{listing.property_type}</p>
+            <div className="bg-orange-50 p-5 rounded-2xl">
+              <p className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-2">Type</p>
+              <p className="text-2xl font-bold capitalize text-stone-900">{listing.property_type}</p>
             </div>
-            <div className="bg-stone-50 p-5 rounded-2xl">
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2">Bedrooms</p>
-              <p className="text-2xl font-bold text-gray-900">{listing.bedroom} BHK</p>
+            <div className="bg-orange-50 p-5 rounded-2xl">
+              <p className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-2">Bedrooms</p>
+              <p className="text-2xl font-bold text-stone-900">{listing.bedroom} BHK</p>
             </div>
-            <div className="bg-stone-50 p-5 rounded-2xl">
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2">Bathrooms</p>
-              <p className="text-2xl font-bold text-gray-900">{listing.bathroom}</p>
+            <div className="bg-orange-50 p-5 rounded-2xl">
+              <p className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-2">Bathrooms</p>
+              <p className="text-2xl font-bold text-stone-900">{listing.bathroom}</p>
             </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-12 mb-10">
             <div className="md:col-span-2">
-              <h2 className="text-xl font-bold mb-4 text-gray-900">About this property</h2>
-              <p className="text-gray-600 whitespace-pre-wrap leading-relaxed text-lg">
+              <h2 className="text-xl font-bold mb-4 text-stone-900">About this property</h2>
+              <p className="text-stone-600 whitespace-pre-wrap leading-relaxed text-lg">
                 {listing.description || "No description provided by the seller."}
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-bold mb-4 text-gray-900">Features</h2>
-              <div className="space-y-4 bg-rose-50/50 p-6 rounded-2xl border border-blue-50">
-                <div className="flex items-center gap-3 text-gray-700 font-medium"><Building2 className="text-rose-500" size={20}/> Floor {listing.floor} of {listing.total_floors}</div>
-                <div className="flex items-center gap-3 text-gray-700 font-medium capitalize"><CheckCircle className="text-rose-500" size={20}/> {listing.furnishing.replace('-', ' ')}</div>
-                <div className="flex items-center gap-3 text-gray-700 font-medium"><CheckCircle className="text-rose-500" size={20}/> {listing.balcony} Balconies</div>
-                <div className="flex items-center gap-3 text-gray-700 font-medium capitalize"><CheckCircle className="text-rose-500" size={20}/> {listing.facing_direction} Facing</div>
-                <div className="flex items-center gap-3 text-gray-700 font-medium"><CheckCircle className="text-rose-500" size={20}/> {listing.covered_parking} Covered Parking</div>
+              <h2 className="text-xl font-bold mb-4 text-stone-900">Features</h2>
+              <div className="space-y-4 bg-emerald-50/50 p-6 rounded-2xl border border-blue-50">
+                <div className="flex items-center gap-3 text-gray-700 font-medium"><Building2 className="text-emerald-700" size={20}/> Floor {listing.floor} of {listing.total_floors}</div>
+                <div className="flex items-center gap-3 text-gray-700 font-medium capitalize"><CheckCircle className="text-emerald-700" size={20}/> {listing.furnishing.replace('-', ' ')}</div>
+                <div className="flex items-center gap-3 text-gray-700 font-medium"><CheckCircle className="text-emerald-700" size={20}/> {listing.balcony} Balconies</div>
+                <div className="flex items-center gap-3 text-gray-700 font-medium capitalize"><CheckCircle className="text-emerald-700" size={20}/> {listing.facing_direction} Facing</div>
+                <div className="flex items-center gap-3 text-gray-700 font-medium"><CheckCircle className="text-emerald-700" size={20}/> {listing.covered_parking} Covered Parking</div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-100 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center bg-stone-50/50 p-8 rounded-3xl">
+          <div className="border-t border-stone-200 pt-8 mt-4 flex flex-col md:flex-row justify-between items-center bg-orange-50/50 p-8 rounded-3xl">
             <div className="flex items-center gap-5 mb-6 md:mb-0">
-              <div className="bg-gradient-to-br from-rose-500 to-orange-500 w-16 h-16 rounded-full text-white flex items-center justify-center shadow-lg">
+              <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 w-16 h-16 rounded-full text-white flex items-center justify-center shadow-lg">
                 <User size={32} />
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Listed By</p>
-                <p className="font-bold text-xl text-gray-900">{listing.posted_by_name}</p>
-                <p className="text-gray-500 capitalize">{listing.posted_by}</p>
+                <p className="text-xs text-stone-500 font-bold uppercase tracking-wider mb-1">Listed By</p>
+                <p className="font-bold text-xl text-stone-900">{listing.posted_by_name}</p>
+                <p className="text-stone-500 capitalize">{listing.posted_by}</p>
               </div>
             </div>
             
             <div className="flex gap-4 w-full md:w-auto">
               {listing.listing_url && (
-                 <a href={listing.listing_url} target="_blank" rel="noreferrer" className="flex-1 md:flex-none justify-center flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-6 py-4 rounded-xl font-bold hover:bg-stone-50 transition-colors shadow-sm">
+                 <a href={listing.listing_url} target="_blank" rel="noreferrer" className="flex-1 md:flex-none justify-center flex items-center gap-2 bg-white border border-stone-300 text-gray-700 px-6 py-4 rounded-xl font-bold hover:bg-orange-50 transition-colors shadow-sm">
                    <ExternalLink size={20} /> View Source
                  </a>
               )}
