@@ -41,3 +41,20 @@ npm run dev
 ```
 
 Log in with: `demo1@ivy.homes` / `0f76079a0a`.
+
+## What Turned Out to be Fine (Failed Hypotheses)
+
+During the investigation, several hypotheses were formed about potential data corruption that ultimately turned out to be false:
+1. **Latitude/Longitude Swaps**: Given the unit errors, I suspected that latitude and longitude might be swapped for some properties or projects. After writing a script to check bounding boxes for Bangalore (approx Lat 12.9, Lon 77.6), all coordinates were correctly positioned.
+2. **Missing Amenities**: I suspected that the menities array in projects might contain completely fabricated strings or null values to break the UI, but it was consistently formatted.
+3. **Price Overflow**: I suspected some prices might exceed 32-bit integer limits and return as negative values due to integer overflow. While negative prices were found, they were simple negative values (like -14500000), not integer overflow boundaries.
+4. **Dates Formatting**: I suspected dates might be randomly formatted (e.g., MM/DD/YYYY vs DD/MM/YYYY) in posted_at, but all dates strictly adhered to ISO 8601 formatting, despite the timezone offset quirk in the /health endpoint.
+
+## What I Would Do with Another Two Days
+
+If given another two days, I would:
+1. **Interactive Data Cleaning**: Build an interactive admin dashboard on the frontend to visualize the fraudulent and corrupt data points on a scatter plot (e.g., price vs carpet area) to easily spot outliers.
+2. **Robust Error Boundaries**: Implement React Error Boundaries and skeleton loaders to handle edge-case data rendering more gracefully if the API schema changes unexpectedly.
+3. **Advanced Filtering**: Implement multi-select filters and debounced search for localities to improve the UX, as the current implementation requires exact matches.
+4. **Automated Testing**: Write Cypress E2E tests to automatically crawl the frontend UI and ensure that the client-side patching of the API bugs does not regress during future updates.
+5. **CI/CD Integration**: Set up GitHub Actions to automatically build and deploy the React application on every push.
